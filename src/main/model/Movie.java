@@ -10,7 +10,7 @@ public class Movie {
         this.title = title;
         this.genre = genre;
         this.rating = -1;
-        this.comment = "n/a";
+        this.comment = "";
     }
 
     public String getTitle() {
@@ -47,6 +47,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Title: " + title + " Genre: " + genre;
+        return "Title: " + title + " | Genre: " + genre;
     }
 }
