@@ -12,7 +12,7 @@ public class MovieList {
         movieList = new LinkedList<>();
     }
 
-    /* REQUIRES: movie object that is not null
+    /* REQUIRES: movie object that is not null and movie title cannot be identical to one that is already in movieList
        MODIFIES: this
        EFFECTS:  newMovie is added to movieList
      */

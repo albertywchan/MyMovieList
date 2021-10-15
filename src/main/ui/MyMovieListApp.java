@@ -4,17 +4,22 @@ import model.*;
 
 import java.util.Scanner;
 
+// MyMovieList application
 public class MyMovieListApp {
     private MovieList watchlist;
     private MovieList reviews;
     private Scanner scanner;
 
+    /* EFFECTS:  watchList and reviews are set to empty MovieLists
+                 scanner is initiated
+     */
     public MyMovieListApp() {
         watchlist = new MovieList();
         reviews = new MovieList();
         scanner = new Scanner(System.in);
     }
 
+    // EFFECTS:  displays the main menu options
     private void displayMainMenu() {
         System.out.println("Welcome. Please select an option:\n"
                 + "[1] View your watchlist.\n"
@@ -22,6 +27,7 @@ public class MyMovieListApp {
                 + "[3] Exit.");
     }
 
+    // EFFECTS: displays the watchlist menu options
     private void displayWatchlistMenu() {
         System.out.println("Please select an option:\n"
                 + "[1] Add a movie to your watchlist.\n"
@@ -29,6 +35,7 @@ public class MyMovieListApp {
                 + "[3] Return to the main menu.");
     }
 
+    // EFFECTS: displays the reviews menu options
     private void displayReviewsMenu() {
         System.out.println("Please select an option:\n"
                 + "[1] Write a new review\n"
@@ -37,6 +44,9 @@ public class MyMovieListApp {
                 + "[4] Return to the main menu.");
     }
 
+    /* REQUIRES: firstOption and lastOption must correspond to the specific menu options
+       EFFECTS:  returns an integer representing the option the user has selected
+     */
     private int processSelection(int firstOption, int lastOption) {
         int input = scanner.nextInt();
         while (input < firstOption || input > lastOption) {
@@ -47,6 +57,7 @@ public class MyMovieListApp {
         return input;
     }
 
+    // EFFECTS:  displays movies currently in the watchlist
     private void viewWatchlist() {
         if (watchlist.isEmpty()) {
             System.out.println("Your watchlist is empty.");
@@ -55,6 +66,9 @@ public class MyMovieListApp {
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  adds a new movie to watchlist given user inputs for the movie title and genre
+     */
     private void addToWatchlist() {
         System.out.println("Enter the movie title: ");
         String title = scanner.nextLine();
@@ -65,6 +79,9 @@ public class MyMovieListApp {
         System.out.println(title + " has been successfully added to your watchlist.\n");
     }
 
+    /* MODIFIES: this
+       EFFECTS:  removes a movie from watchlist given user input for the movie title
+     */
     private void removeFromWatchlist() {
         if (watchlist.isEmpty()) {
             System.out.println("There is nothing to remove.");
@@ -80,6 +97,7 @@ public class MyMovieListApp {
         }
     }
 
+    // EFFECTS:  displays movies that are currently reviewed
     private void viewReviews() {
         if (reviews.isEmpty()) {
             System.out.println("You have not written any reviews yet.");
@@ -88,6 +106,7 @@ public class MyMovieListApp {
         }
     }
 
+    // EFFECTS:  displays a movie review given user input for the movie title
     private void readReview() {
         System.out.println("Enter the title of the movie review you would like to see: ");
         String title = scanner.nextLine();
@@ -98,6 +117,10 @@ public class MyMovieListApp {
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  transfers a specific movie from watchlist to reviews given user input for the movie title
+                 rating and comment are updated using user inputs
+     */
     private void addReview() {
         System.out.println("Enter the title of the movie you would like to review: ");
         String title = scanner.nextLine();
@@ -111,6 +134,10 @@ public class MyMovieListApp {
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  updates a specific movie given user input for the movie title
+                 rating and comment are updated using user inputs
+     */
     private void updateReview() {
         if (reviews.isEmpty()) {
             System.out.println("There are no reviews to update.");
@@ -126,6 +153,7 @@ public class MyMovieListApp {
         }
     }
 
+    // EFFECTS:  asks user for a rating on scale of 1 to 5 and returns it
     private int getNewRating() {
         System.out.println("Please enter a rating on a scale of one to five stars: ");
         int rating = scanner.nextInt();
@@ -137,11 +165,13 @@ public class MyMovieListApp {
         return rating;
     }
 
+    // EFFECTS:  asks user for a comment and returns it
     private String getNewComment() {
         System.out.println("Please enter a comment for your review: ");
         return scanner.nextLine();
     }
 
+    // EFFECTS: starts the application and runs the main menu
     public void runApp() {
         boolean exit = false;
         int selection;
@@ -158,6 +188,7 @@ public class MyMovieListApp {
         }
     }
 
+    // EFFECTS:  runs the watchlist menu
     public void runWatchlist() {
         boolean exit = false;
         int selection;
@@ -175,6 +206,7 @@ public class MyMovieListApp {
         }
     }
 
+    // EFFECTS: runs the reviews menu
     public void runReviews() {
         boolean exit = false;
         int selection;
