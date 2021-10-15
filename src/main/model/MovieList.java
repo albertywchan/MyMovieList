@@ -19,13 +19,12 @@ public class MovieList {
         return movieList.remove(index);
     }
 
-    public void getReview(String title) {
+    public String getReview(String title) {
         int index = getIndexOfMovie(title);
         Movie movie = movieList.get(index);
-        System.out.println(movie.toString() + "\n"
+        return (movie.toString() + "\n"
                 + "Rating: " + movie.getRating() + "\n"
-                + "Comment: " + movie.getComment());
-
+                + "Comment: " + movie.getComment() + "\n");
     }
 
     public void updateReview(String title, int rating, String comment) {
@@ -35,7 +34,7 @@ public class MovieList {
         movie.setComment(comment);
     }
 
-    public int getIndexOfMovie(String title) {
+    private int getIndexOfMovie(String title) {
         int index = 0;
         boolean found = false;
         for (Movie movie: movieList) {
