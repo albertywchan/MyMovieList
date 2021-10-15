@@ -68,12 +68,12 @@ public class MyMovieListApp {
         } else {
             System.out.println("Enter the title of the movie you would like to remove: ");
             String title = scanner.next();
-            while (watchlist.getIndexOfMovie(title) == -1) {
-                System.out.println("That movie is not in your watchlist. Please select a different movie: ");
-                title = scanner.next();
+            if (!watchlist.hasMovie(title)) {
+                System.out.println(title + " is not in your watchlist. Please select a different movie.");
+            } else {
+                watchlist.removeMovie(title);
+                System.out.println(title + " has been successfully removed from your watchlist.");
             }
-            watchlist.removeMovie(title);
-            System.out.println(title + " has been successfully removed from your watchlist.");
         }
     }
 
@@ -82,34 +82,36 @@ public class MyMovieListApp {
             System.out.println("You have not written any reviews yet.");
         } else {
             System.out.println("You have reviewed the following movies: " + reviews.toString());
+            String title = scanner.next();
+            if (!reviews.hasMovie(title)) {
+                System.out.println("There is no review for " + title + ". Please select a different movie.");
+            } else {
+                reviews.getReview(title);
+            }
         }
     }
 
     private void addReview() {
         System.out.println("Enter the title of the movie you would like to review: ");
         String title = scanner.next();
-        while (watchlist.getIndexOfMovie(title) == -1) {
-            System.out.println("That movie is not in your watchlist. Please select a different movie: ");
-            title = scanner.next();
+        if (!watchlist.hasMovie(title)) {
+            System.out.println(title + " is not in your watchlist. Please select a different movie.");
+        } else {
+            Movie newReview = watchlist.removeMovie(title);
+            reviews.addMovie(newReview);
+            reviews.updateReview(title, getNewRating(), getNewComment());
         }
-        Movie newReview = watchlist.getMovie(title);
-        newReview.setRating(getNewRating());
-        newReview.setComment(getNewComment());
-        watchlist.removeMovie(title);
-        reviews.addMovie(newReview);
     }
 
     private void updateReview() {
         System.out.println("Enter the title of the movie you would like to review: : ");
         String title = scanner.next();
-        while (reviews.getIndexOfMovie(title) == -1) {
-            System.out.println("There is no review for that movie. Please select a different review: ");
-            title = scanner.next();
+        if (!reviews.hasMovie(title)) {
+            System.out.println("There is no review for " + title + ". Please select a different review.");
+        } else {
+            reviews.updateReview(title, getNewRating(), getNewComment());
+            System.out.println("Your review for " + title + " has been successfully updated.");
         }
-        Movie newReview = watchlist.getMovie(title);
-        newReview.setRating(getNewRating());
-        newReview.setComment(getNewComment());
-        System.out.println("Your review for " + title + " has been successfully updated.");
     }
 
     private int getNewRating() {
@@ -129,30 +131,48 @@ public class MyMovieListApp {
 
     public void runApp() {
         boolean exit = false;
-        int mainMenuSelection = 0;
-        int watchlistMenuSelection = 0;
-        int reviewMenuSelection = 0;
+        int selection;
         while (!exit) {
             displayMainMenu();
-            mainMenuSelection = processSelection(1,3);
-            if (mainMenuSelection == 1) {
-                viewWatchlist();
-                displayWatchlistMenu();
-                watchlistMenuSelection = processSelection(1,3);
-                if (watchlistMenuSelection == 1) {
-                    addToWatchlist();
-                } else if (watchlistMenuSelection == 2) {
-                    removeFromWatchlist();
-                }
-            } else if (mainMenuSelection == 2) {
-                readReviews();
-                displayReviewsMenu();
-                reviewMenuSelection = processSelection(1,3);
-                if (reviewMenuSelection == 1) {
-                    addReview();
-                } else if (reviewMenuSelection == 2) {
-                    updateReview();
-                }
+            selection = processSelection(1,3);
+            if (selection == 1) {
+                runWatchlist();
+            } else if (selection == 2) {
+                runReviews();
+            } else {
+                exit = true;
+            }
+        }
+    }
+
+    public void runWatchlist() {
+        boolean exit = false;
+        int selection;
+        while (!exit) {
+            viewWatchlist();
+            displayWatchlistMenu();
+            selection = processSelection(1, 3);
+            if (selection == 1) {
+                addToWatchlist();
+            } else if (selection == 2) {
+                removeFromWatchlist();
+            } else {
+                exit = true;
+            }
+        }
+    }
+
+    public void runReviews() {
+        boolean exit = false;
+        int selection;
+        while (!exit) {
+            readReviews();
+            displayReviewsMenu();
+            selection = processSelection(1, 3);
+            if (selection == 1) {
+                addReview();
+            } else if (selection == 2) {
+                updateReview();
             } else {
                 exit = true;
             }

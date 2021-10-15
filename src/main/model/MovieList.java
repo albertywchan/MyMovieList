@@ -7,21 +7,32 @@ public class MovieList {
     private LinkedList<Movie> movieList;
 
     public MovieList() {
-        movieList = new LinkedList<Movie>();
+        movieList = new LinkedList<>();
     }
 
     public void addMovie(Movie newMovie) {
         movieList.add(newMovie);
     }
 
-    public void removeMovie(String title) {
+    public Movie removeMovie(String title) {
         int index = getIndexOfMovie(title);
-        movieList.remove(index);
+        return movieList.remove(index);
     }
 
-    public Movie getMovie(String title) {
+    public void getReview(String title) {
         int index = getIndexOfMovie(title);
-        return movieList.get(index);
+        Movie movie = movieList.get(index);
+        System.out.println(movie.toString() + "\n"
+                + "Rating: " + movie.getRating() + "\n"
+                + "Comment: " + movie.getComment());
+
+    }
+
+    public void updateReview(String title, int rating, String comment) {
+        int index = getIndexOfMovie(title);
+        Movie movie = movieList.get(index);
+        movie.setRating(rating);
+        movie.setComment(comment);
     }
 
     public int getIndexOfMovie(String title) {
@@ -41,6 +52,10 @@ public class MovieList {
         }
     }
 
+    public boolean hasMovie(String title) {
+        return getIndexOfMovie(title) == -1;
+    }
+
     public boolean isEmpty() {
         return movieList.isEmpty();
     }
@@ -48,9 +63,9 @@ public class MovieList {
     @Override
     public String toString() {
         Iterator<Movie> iterator = movieList.iterator();
-        String movieListString = iterator.next().toString();
+        String movieListString = iterator.next().getTitle();
         while (iterator.hasNext()) {
-            movieListString += ", " + iterator.next().toString();
+            movieListString += ", " + iterator.next().getTitle();
         }
         return movieListString;
     }

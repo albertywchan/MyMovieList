@@ -3,13 +3,13 @@ package model;
 public class Movie {
     private String title;
     private String genre;
-    private String rating;
+    private int rating;
     private String comment;
 
     public Movie(String title, String genre) {
         this.title = title;
         this.genre = genre;
-        this.rating = "n/a";
+        this.rating = -1;
         this.comment = "n/a";
     }
 
@@ -21,7 +21,7 @@ public class Movie {
         return genre;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 
@@ -38,7 +38,7 @@ public class Movie {
     }
 
     public void setRating(int newRating) {
-        rating = newRating + "/5";
+        rating = newRating;
     }
 
     public void setComment(String newComment) {
@@ -47,6 +47,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Title: " + title + ", Genre: " + genre + ", Rating: " + rating;
+        return "Title: " + title + " Genre: " + genre;
     }
 }
