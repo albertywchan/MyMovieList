@@ -23,8 +23,7 @@ public class MovieList {
         int index = getIndexOfMovie(title);
         Movie movie = movieList.get(index);
         return (movie.toString() + "\n"
-                + "Rating: " + movie.getRating() + "\n"
-                + "Comment: " + movie.getComment() + "\n");
+                + "Rating: " + movie.getRating() + "/5\n Comment: " + movie.getComment() + "\n");
     }
 
     public void updateReview(String title, int rating, String comment) {
@@ -56,7 +55,11 @@ public class MovieList {
     }
 
     public boolean isEmpty() {
-        return movieList.isEmpty();
+        return length() == 0;
+    }
+
+    public int length() {
+        return movieList.size();
     }
 
     @Override

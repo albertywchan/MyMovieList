@@ -16,24 +16,24 @@ public class MyMovieListApp {
     }
 
     private void displayMainMenu() {
-        System.out.println("Welcome. Please select an option: \n"
-                + "[1] View your watchlist. \n"
-                + "[2] Read your reviews. \n"
+        System.out.println("Welcome. Please select an option:\n"
+                + "[1] View your watchlist.\n"
+                + "[2] Read your reviews.\n"
                 + "[3] Exit.");
     }
 
     private void displayWatchlistMenu() {
-        System.out.println("Please select an option: \n"
-                + "[1] Add a movie to your watchlist. \n"
-                + "[2] Remove a movie from your watchlist. \n"
+        System.out.println("Please select an option:\n"
+                + "[1] Add a movie to your watchlist.\n"
+                + "[2] Remove a movie from your watchlist.\n"
                 + "[3] Return to the main menu.");
     }
 
     private void displayReviewsMenu() {
-        System.out.println("Please select an option: \n"
-                + "[1] Write a new review \n"
-                + "[2] Read an old review. \n"
-                + "[3] Update an old review. \n"
+        System.out.println("Please select an option:\n"
+                + "[1] Write a new review\n"
+                + "[2] Read an old review.\n"
+                + "[3] Update an old review.\n"
                 + "[4] Return to the main menu.");
     }
 
@@ -62,7 +62,7 @@ public class MyMovieListApp {
         String genre = scanner.nextLine();
         Movie newMovie = new Movie(title, genre);
         watchlist.addMovie(newMovie);
-        System.out.println(title + " has been successfully added to your watchlist. \n");
+        System.out.println(title + " has been successfully added to your watchlist.\n");
     }
 
     private void removeFromWatchlist() {
@@ -72,10 +72,10 @@ public class MyMovieListApp {
             System.out.println("Enter the title of the movie you would like to remove: ");
             String title = scanner.nextLine();
             if (!watchlist.hasMovie(title)) {
-                System.out.println(title + " is not in your watchlist. Please try again. \n");
+                System.out.println(title + " is not in your watchlist. Please try again.\n");
             } else {
                 watchlist.removeMovie(title);
-                System.out.println(title + " has been successfully removed from your watchlist. \n");
+                System.out.println(title + " has been successfully removed from your watchlist.\n");
             }
         }
     }
@@ -92,7 +92,7 @@ public class MyMovieListApp {
         System.out.println("Enter the title of the movie review you would like to see: ");
         String title = scanner.nextLine();
         if (!reviews.hasMovie(title)) {
-            System.out.println("There is no review for " + title + ". Please try again. \n");
+            System.out.println("There is no review for " + title + ". Please try again.\n");
         } else {
             System.out.println(reviews.getReview(title));
         }
@@ -102,12 +102,12 @@ public class MyMovieListApp {
         System.out.println("Enter the title of the movie you would like to review: ");
         String title = scanner.nextLine();
         if (!watchlist.hasMovie(title)) {
-            System.out.println(title + " is not in your watchlist. Please try again. \n");
+            System.out.println(title + " is not in your watchlist. Please try again.\n");
         } else {
             Movie newReview = watchlist.removeMovie(title);
             reviews.addMovie(newReview);
             reviews.updateReview(title, getNewRating(), getNewComment());
-            System.out.println("Your review for " + title + " has been successfully added. \n");
+            System.out.println("Your review for " + title + " has been successfully added.\n");
         }
     }
 
@@ -118,10 +118,10 @@ public class MyMovieListApp {
             System.out.println("Enter the title of the movie you would like to update the review for: ");
             String title = scanner.nextLine();
             if (!reviews.hasMovie(title)) {
-                System.out.println("There is no review for " + title + ". Please try again. \n");
+                System.out.println("There is no review for " + title + ". Please try again.\n");
             } else {
                 reviews.updateReview(title, getNewRating(), getNewComment());
-                System.out.println("Your review for " + title + " has been successfully updated. \n");
+                System.out.println("Your review for " + title + " has been successfully updated.\n");
             }
         }
     }

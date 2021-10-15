@@ -75,7 +75,7 @@ public class MovieTest {
         m4.setComment("Hilarious movie.");
         // Using getters with new values
         assertNotEquals(m3.getComment(), "Very scary");
-        assertNotEquals(m4.getComment(), "Very hilarious");
+        assertNotEquals(m4.getComment(), "Hilarious");
         assertEquals(m3.getComment(), "Very scary movie.");
         assertEquals(m4.getComment(), "Hilarious movie.");
     }
