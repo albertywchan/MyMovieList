@@ -73,9 +73,12 @@ public class MovieListTest {
         assertEquals(l1.toString(), "Batman, Finding Nemo");
         assertEquals(l2.toString(), "Saw, Superbad");
         Movie m1 = new Movie("Spiderman", "Action");
+        Movie m2 = new Movie("Frozen", "Family");
         l1.addMovie(m1);
+        l1.addMovie(m2);
         l2.removeMovie("Saw");
-        assertEquals(l1.toString(), "Batman, Finding Nemo, Spiderman");
-        assertEquals(l2.toString(), "Superbad");
+        l2.removeMovie("Superbad");
+        assertEquals(l1.toString(), "Batman, Finding Nemo, Spiderman, Frozen");
+        assertEquals(l2.toString(), "");
     }
 }

@@ -36,7 +36,7 @@ public class MovieList {
     private int getIndexOfMovie(String title) {
         int index = 0;
         boolean found = false;
-        for (Movie movie: movieList) {
+        for (Movie movie : movieList) {
             if (movie.getTitle().equals(title)) {
                 found = true;
                 break;
@@ -64,12 +64,14 @@ public class MovieList {
 
     @Override
     public String toString() {
-        Iterator<Movie> iterator = movieList.iterator();
-        String movieListString = iterator.next().getTitle();
-        while (iterator.hasNext()) {
-            movieListString += ", " + iterator.next().getTitle();
+        String movieListString = "";
+        if (!isEmpty()) {
+            Iterator<Movie> iterator = movieList.iterator();
+            movieListString = iterator.next().getTitle();
+            while (iterator.hasNext()) {
+                movieListString += ", " + iterator.next().getTitle();
+            }
         }
         return movieListString;
     }
-
 }
