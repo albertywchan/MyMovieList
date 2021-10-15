@@ -53,7 +53,7 @@ public class MovieList {
     }
 
     public boolean hasMovie(String title) {
-        return getIndexOfMovie(title) == -1;
+        return getIndexOfMovie(title) != -1;
     }
 
     public boolean isEmpty() {
