@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // This class represents a movie that has a title, a genre, a rating, and a comment
 public class Movie {
     private String title;
@@ -7,15 +9,14 @@ public class Movie {
     private int rating;
     private String comment;
 
-    /* REQUIRES: title and genre are not empty strings
-       EFFECTS:  title and genre of the movie are set to the parameters
-                 rating is default set to -1 and the comment is default set to be empty
+    /* REQUIRES: arguments must not be empty
+       EFFECTS:  fields are set to the parameters
     */
-    public Movie(String title, String genre) {
+    public Movie(String title, String genre, int rating, String comment) {
         this.title = title;
         this.genre = genre;
-        this.rating = -1;
-        this.comment = "";
+        this.rating = rating;
+        this.comment = comment;
     }
 
     public String getTitle() {
@@ -54,5 +55,14 @@ public class Movie {
     @Override
     public String toString() {
         return "Title: " + title + " | Genre: " + genre;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("genre", genre);
+        json.put("rating", rating);
+        json.put("comment", comment);
+        return json;
     }
 }
