@@ -11,12 +11,12 @@ public class MovieListTest {
 
     @BeforeEach
     void runBefore() {
-        l1 = new MovieList();
-        l2 = new MovieList();
-        Movie m1 = new Movie("Batman", "Action");
-        Movie m2 = new Movie("Finding Nemo", "Family");
-        Movie m3 = new Movie("Saw", "Horror");
-        Movie m4 = new Movie("Superbad", "Comedy");
+        l1 = new MovieList("l1");
+        l2 = new MovieList("l2");
+        Movie m1 = new Movie("Batman", "Action", -1, "");
+        Movie m2 = new Movie("Finding Nemo", "Family", -1, "");
+        Movie m3 = new Movie("Saw", "Horror", -1, "");
+        Movie m4 = new Movie("Superbad", "Comedy", -1, "");
         l1.addMovie(m1);
         l1.addMovie(m2);
         l2.addMovie(m3);
@@ -27,8 +27,8 @@ public class MovieListTest {
     void testAddAndRemove() {
         assertEquals(l1.length(), 2);
         assertEquals(l2.length(), 2);
-        Movie m1 = new Movie("Spiderman", "Action");
-        Movie m2 = new Movie("Frozen", "Family");
+        Movie m1 = new Movie("Spiderman", "Action", -1, "");
+        Movie m2 = new Movie("Frozen", "Family", -1 ,"");
         l1.addMovie(m1);
         l1.addMovie(m2);
         l2.removeMovie("Saw");
@@ -72,8 +72,8 @@ public class MovieListTest {
     void testToString() {
         assertEquals(l1.toString(), "Batman, Finding Nemo");
         assertEquals(l2.toString(), "Saw, Superbad");
-        Movie m1 = new Movie("Spiderman", "Action");
-        Movie m2 = new Movie("Frozen", "Family");
+        Movie m1 = new Movie("Spiderman", "Action", -1, "");
+        Movie m2 = new Movie("Frozen", "Family", -1, "");
         l1.addMovie(m1);
         l1.addMovie(m2);
         l2.removeMovie("Saw");

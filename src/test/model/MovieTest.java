@@ -13,10 +13,10 @@ public class MovieTest {
 
     @BeforeEach
     void runBefore() {
-        m1 = new Movie("Batman", "Action");
-        m2 = new Movie("Finding Nemo", "Family");
-        m3 = new Movie("Saw", "Horror");
-        m4 = new Movie("Superbad", "Comedy");
+        m1 = new Movie("Batman", "Action", -1, "");
+        m2 = new Movie("Finding Nemo", "Family", -1, "");
+        m3 = new Movie("Saw", "Horror", -1, "");
+        m4 = new Movie("Superbad", "Comedy", -1, "");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class MovieTest {
 
     @Test
     void testComments() {
-        // Using getters with original values
+        // Using getters with original values (default is "")
         assertEquals(m3.getComment(), "");
         assertEquals(m4.getComment(), "");
         // Using setters with new values
