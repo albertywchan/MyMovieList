@@ -6,6 +6,6 @@ public class Main {
         // Creates a new MyMovieListApp object
         MyMovieListApp myMovieListApp = new MyMovieListApp();
         // Runs the app
-        myMovieListApp.runApp();
+        myMovieListApp.runMainMenu();
     }
 }

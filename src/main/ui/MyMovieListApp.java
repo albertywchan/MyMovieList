@@ -1,22 +1,85 @@
 package ui;
 
 import model.*;
-
+import persistence.*;
 import java.util.Scanner;
 
 // MyMovieList application
 public class MyMovieListApp {
+    private static final String WATCHLIST_FILE = "./data/watchlistTest.json";
+    private static final String REVIEWS_FILE = "./data/reviewsTest.json";
     private MovieList watchlist;
     private MovieList reviews;
     private Scanner scanner;
+
 
     /* EFFECTS:  watchList and reviews are set to empty MovieLists
                  scanner is initiated
      */
     public MyMovieListApp() {
-        watchlist = new MovieList();
-        reviews = new MovieList();
+        watchlist = new MovieList("Watchlist");
+        reviews = new MovieList("Reviews");
         scanner = new Scanner(System.in);
+    }
+
+    // EFFECTS: starts the application and runs the main menu
+    public void runMainMenu() {
+        boolean exit = false;
+        int selection;
+        while (!exit) {
+            displayMainMenu();
+            selection = processSelection(1, 5);
+            if (selection == 1) {
+                runWatchlist();
+            } else if (selection == 2) {
+                runReviews();
+            } else if (selection == 3) {
+                loadMovies();
+            } else if (selection == 4) {
+                saveMovies();
+            } else {
+                exit = true;
+                System.out.println("Goodbye.");
+            }
+        }
+    }
+
+    // EFFECTS:  runs the watchlist menu
+    public void runWatchlist() {
+        boolean exit = false;
+        int selection;
+        while (!exit) {
+            viewWatchlist();
+            displayWatchlistMenu();
+            selection = processSelection(1, 3);
+            if (selection == 1) {
+                addToWatchlist();
+            } else if (selection == 2) {
+                removeFromWatchlist();
+            } else {
+                exit = true;
+            }
+        }
+    }
+
+    // EFFECTS: runs the reviews menu
+    public void runReviews() {
+        boolean exit = false;
+        int selection;
+        while (!exit) {
+            viewReviews();
+            displayReviewsMenu();
+            selection = processSelection(1, 4);
+            if (selection == 1) {
+                addReview();
+            } else if (selection == 2) {
+                readReview();
+            } else if (selection == 3) {
+                updateReview();
+            } else {
+                exit = true;
+            }
+        }
     }
 
     // EFFECTS:  displays the main menu options
@@ -24,7 +87,9 @@ public class MyMovieListApp {
         System.out.println("Welcome. Please select an option:\n"
                 + "[1] View your watchlist.\n"
                 + "[2] Read your reviews.\n"
-                + "[3] Exit.");
+                + "[3] Load an existing watchlist and reviews.\n"
+                + "[4] Save your current watchlist and reviews.\n"
+                + "[5] Exit.");
     }
 
     // EFFECTS: displays the watchlist menu options
@@ -74,7 +139,7 @@ public class MyMovieListApp {
         String title = scanner.nextLine();
         System.out.println("Enter the movie genre: ");
         String genre = scanner.nextLine();
-        Movie newMovie = new Movie(title, genre);
+        Movie newMovie = new Movie(title, genre, -1, ""); // default rating = -1, default comment = ""
         watchlist.addMovie(newMovie);
         System.out.println(title + " has been successfully added to your watchlist.\n");
     }
@@ -171,58 +236,18 @@ public class MyMovieListApp {
         return scanner.nextLine();
     }
 
-    // EFFECTS: starts the application and runs the main menu
-    public void runApp() {
-        boolean exit = false;
-        int selection;
-        while (!exit) {
-            displayMainMenu();
-            selection = processSelection(1, 3);
-            if (selection == 1) {
-                runWatchlist();
-            } else if (selection == 2) {
-                runReviews();
-            } else {
-                exit = true;
-            }
-        }
+    public void loadMovies() {
+        JsonReader watchlistReader = new JsonReader(WATCHLIST_FILE);
+        JsonReader reviewsReader = new JsonReader(REVIEWS_FILE);
+        watchlist = watchlistReader.parseMovieList();
+        reviews = reviewsReader.parseMovieList();
     }
 
-    // EFFECTS:  runs the watchlist menu
-    public void runWatchlist() {
-        boolean exit = false;
-        int selection;
-        while (!exit) {
-            viewWatchlist();
-            displayWatchlistMenu();
-            selection = processSelection(1, 3);
-            if (selection == 1) {
-                addToWatchlist();
-            } else if (selection == 2) {
-                removeFromWatchlist();
-            } else {
-                exit = true;
-            }
-        }
+    public void saveMovies() {
+        JsonWriter watchlistWriter = new JsonWriter(WATCHLIST_FILE);
+        JsonWriter reviewsWriter = new JsonWriter(REVIEWS_FILE);
+        watchlistWriter.saveMovieList(watchlist);
+        reviewsWriter.saveMovieList(reviews);
     }
 
-    // EFFECTS: runs the reviews menu
-    public void runReviews() {
-        boolean exit = false;
-        int selection;
-        while (!exit) {
-            viewReviews();
-            displayReviewsMenu();
-            selection = processSelection(1, 4);
-            if (selection == 1) {
-                addReview();
-            } else if (selection == 2) {
-                readReview();
-            } else if (selection == 3) {
-                updateReview();
-            } else {
-                exit = true;
-            }
-        }
-    }
 }
