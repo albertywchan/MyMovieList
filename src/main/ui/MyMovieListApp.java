@@ -12,7 +12,6 @@ public class MyMovieListApp {
     private MovieList reviews;
     private Scanner scanner;
 
-
     /* EFFECTS:  watchList and reviews are set to empty MovieLists
                  scanner is initiated
      */
@@ -26,6 +25,7 @@ public class MyMovieListApp {
     public void runMainMenu() {
         boolean exit = false;
         int selection;
+        System.out.print("Welcome. ");
         while (!exit) {
             displayMainMenu();
             selection = processSelection(1, 5);
@@ -84,7 +84,7 @@ public class MyMovieListApp {
 
     // EFFECTS:  displays the main menu options
     private void displayMainMenu() {
-        System.out.println("Welcome. Please select an option:\n"
+        System.out.println("Please select an option:\n"
                 + "[1] View your watchlist.\n"
                 + "[2] Read your reviews.\n"
                 + "[3] Load an existing watchlist and reviews.\n"
@@ -139,7 +139,7 @@ public class MyMovieListApp {
         String title = scanner.nextLine();
         System.out.println("Enter the movie genre: ");
         String genre = scanner.nextLine();
-        Movie newMovie = new Movie(title, genre, -1, ""); // default rating = -1, default comment = ""
+        Movie newMovie = new Movie(title, genre);
         watchlist.addMovie(newMovie);
         System.out.println(title + " has been successfully added to your watchlist.\n");
     }
@@ -236,6 +236,9 @@ public class MyMovieListApp {
         return scanner.nextLine();
     }
 
+    /* MODIFIES: this
+       EFFECTS:  creates new MovieList objects from the JSON files and sets fields to them
+     */
     public void loadMovies() {
         JsonReader watchlistReader = new JsonReader(WATCHLIST_FILE);
         JsonReader reviewsReader = new JsonReader(REVIEWS_FILE);
@@ -243,6 +246,7 @@ public class MyMovieListApp {
         reviews = reviewsReader.parseMovieList();
     }
 
+    // EFFECTS:  saves both watchlist and reviews to individual JSON files
     public void saveMovies() {
         JsonWriter watchlistWriter = new JsonWriter(WATCHLIST_FILE);
         JsonWriter reviewsWriter = new JsonWriter(REVIEWS_FILE);

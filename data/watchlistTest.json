@@ -1,22 +1,28 @@
 {
   "movies": [
     {
-      "title": "needle",
-      "genre": "STITCHING",
-      "rating": 5,
-      "comment": "good"
+      "genre": "Action",
+      "rating": -1,
+      "comment": "",
+      "title": "Spiderman"
     },
     {
-      "title": "thread",
-      "genre": "STITCHING",
-      "rating": 5,
-      "comment": "good"
+      "genre": "Family",
+      "rating": -1,
+      "comment": "",
+      "title": "Frozen"
     },
     {
-      "title": "quilt",
-      "genre": "STITCHING",
-      "rating": 5,
-      "comment": "good"
+      "genre": "Comedy",
+      "rating": -1,
+      "comment": "",
+      "title": "Superbad"
+    },
+    {
+      "genre": "Horror",
+      "rating": -1,
+      "comment": "",
+      "title": "The Conjuring"
     }
   ],
   "name": "Watchlist"

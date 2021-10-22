@@ -39,8 +39,7 @@ public class MovieList {
     public String getReview(String title) { // UPDATE THIS
         int index = getIndexOfMovie(title);
         Movie movie = movieList.get(index);
-        return (movie.toString() + "\n"
-                + "Rating: " + movie.getRating() + "/5\n Comment: " + movie.getComment() + "\n");
+        return (movie.toString() + "\nRating: " + movie.getRating() + "/5\nComment: " + movie.getComment() + "\n");
     }
 
     /* REQUIRES: movieList is not empty, the movie with the particular movie is in movieList, rating is between 1 and 5
@@ -106,6 +105,7 @@ public class MovieList {
         return movieListString;
     }
 
+    // EFFECTS:  returns the movie list as JSONObject
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("movies", moviesToJson());
@@ -113,6 +113,7 @@ public class MovieList {
         return json;
     }
 
+    // EFFECTS:  adds each movie in the movie list to a JSONArray and returns the the JSONArray
     private JSONArray moviesToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Movie movie : movieList) {

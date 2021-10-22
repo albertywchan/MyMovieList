@@ -1,1 +1,11 @@
-{"movies":[],"name":"Reviews"}
+{
+  "movies": [
+    {
+      "genre": "Action",
+      "rating": 5,
+      "comment": "Superb acting.",
+      "title": "Batman"
+    }
+  ],
+  "name": "Reviews"
+}
