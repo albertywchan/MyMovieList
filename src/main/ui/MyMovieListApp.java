@@ -2,6 +2,8 @@ package ui;
 
 import model.*;
 import persistence.*;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 // MyMovieList application
@@ -239,28 +241,35 @@ public class MyMovieListApp {
        EFFECTS:  creates new MovieList objects from the JSON files and sets fields to them
      */
     public void loadMovies() {
-        System.out.print("Enter the name of the file you would like to load your watchlist from: ");
-        String watchlistFileName = scanner.nextLine();
-        JsonReader watchlistReader = new JsonReader(DATA_FILEPATH + watchlistFileName);
-        System.out.print("Enter the name of the file you would like to load your reviews from: ");
-        String reviewsFileName = scanner.nextLine();
-        JsonReader reviewsReader = new JsonReader(DATA_FILEPATH + reviewsFileName);
-        watchlist = watchlistReader.parseMovieList();
-        reviews = reviewsReader.parseMovieList();
-        System.out.println("Your watchlist and reviews have been loaded.\n");
+        try {
+            System.out.print("Enter the name of the file you would like to load your watchlist from: ");
+            String watchlistFileName = scanner.nextLine();
+            JsonReader watchlistReader = new JsonReader(DATA_FILEPATH + watchlistFileName);
+            System.out.print("Enter the name of the file you would like to load your reviews from: ");
+            String reviewsFileName = scanner.nextLine();
+            JsonReader reviewsReader = new JsonReader(DATA_FILEPATH + reviewsFileName);
+            watchlist = watchlistReader.parseMovieList();
+            reviews = reviewsReader.parseMovieList();
+            System.out.println("Your watchlist and reviews have been loaded.\n");
+        } catch (IOException e) {
+            System.out.println("Unable to load movies. File was not found.\n");
+        }
     }
 
     // EFFECTS:  saves both watchlist and reviews to individual JSON files
     public void saveMovies() {
-        System.out.print("Enter the name of the file you would like to save your watchlist to: ");
-        String watchlistFileName = scanner.nextLine();
-        JsonWriter watchlistWriter = new JsonWriter(DATA_FILEPATH + watchlistFileName);
-        System.out.print("Enter the name of the file you would like to save your reviews to: ");
-        String reviewsFileName = scanner.nextLine();
-        JsonWriter reviewsWriter = new JsonWriter(DATA_FILEPATH + reviewsFileName);
-        watchlistWriter.saveMovieList(watchlist);
-        reviewsWriter.saveMovieList(reviews);
-        System.out.println("Your watchlist and reviews have been saved.\n");
+        try {
+            System.out.print("Enter the name of the file you would like to save your watchlist to: ");
+            String watchlistFileName = scanner.nextLine();
+            JsonWriter watchlistWriter = new JsonWriter(DATA_FILEPATH + watchlistFileName);
+            System.out.print("Enter the name of the file you would like to save your reviews to: ");
+            String reviewsFileName = scanner.nextLine();
+            JsonWriter reviewsWriter = new JsonWriter(DATA_FILEPATH + reviewsFileName);
+            watchlistWriter.saveMovieList(watchlist);
+            reviewsWriter.saveMovieList(reviews);
+            System.out.println("Your watchlist and reviews have been saved.\n");
+        } catch (IOException e) {
+            System.out.println("Unable to save movies. File was not found.\n");
+        }
     }
-
 }

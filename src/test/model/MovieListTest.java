@@ -23,6 +23,14 @@ public class MovieListTest {
     }
 
     @Test
+    void testName() {
+        assertEquals(l1.getName(), "l1");
+        l1.setName("Test Movie List");
+        assertNotEquals(l1.getName(), "l1");
+        assertEquals(l1.getName(), "Test Movie List");
+    }
+
+    @Test
     void testAddAndRemove() {
         assertEquals(l1.length(), 2);
         assertEquals(l2.length(), 2);

@@ -1,0 +1,11 @@
+{
+  "movies": [
+    {
+      "genre": "Action",
+      "rating": 4,
+      "comment": "Excellent movie.",
+      "title": "Batman"
+    }
+  ],
+  "name": "Test Movie List"
+}

@@ -1,0 +1,17 @@
+{
+  "movies": [
+    {
+      "genre": "Action",
+      "rating": 4,
+      "comment": "Excellent movie.",
+      "title": "Batman"
+    },
+    {
+      "genre": "Family",
+      "rating": 3,
+      "comment": "Great movie for children.",
+      "title": "Finding Nemo"
+    }
+  ],
+  "name": "Test Movie List"
+}

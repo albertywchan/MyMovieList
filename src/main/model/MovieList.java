@@ -2,6 +2,7 @@ package model;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,6 +15,14 @@ public class MovieList {
     public MovieList(String name) {
         movieList = new LinkedList<>();
         this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String newName) {
+        this.name = newName;
     }
 
     /* REQUIRES: movie object that is not null and movie title cannot be identical to one that is already in movieList
@@ -36,7 +45,7 @@ public class MovieList {
     /* REQUIRES: movieList is not empty and the movie with the particular movie is in movieList
        EFFECTS:  returns a String representation of a particular movie including its rating and comment
      */
-    public String getReview(String title) { // UPDATE THIS
+    public String getReview(String title) {
         int index = getIndexOfMovie(title);
         Movie movie = movieList.get(index);
         return (movie.toString() + "\nRating: " + movie.getRating() + "/5\nComment: " + movie.getComment() + "\n");

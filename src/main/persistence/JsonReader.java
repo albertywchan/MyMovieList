@@ -1,9 +1,11 @@
 package persistence;
 
 import model.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,21 +17,17 @@ public class JsonReader {
     /* EFFECTS:  constructs a reader from the given JSON file and reads the MovieList from it
                  catches IOException when an invalid file name is provided
      */
-    public JsonReader(String fileName) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            StringBuilder builder = new StringBuilder();
-            String line = reader.readLine();
-            while (line != null) {
-                builder.append(line);
-                line = reader.readLine();
-            }
-            movieList = new JSONObject(builder.toString());
-            movies = movieList.getJSONArray("movies");
-            reader.close();
-        } catch (IOException e) {
-            System.out.println(fileName + " file was not found. Please use a different file name.");
+    public JsonReader(String fileName) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        StringBuilder builder = new StringBuilder();
+        String line = reader.readLine();
+        while (line != null) {
+            builder.append(line);
+            line = reader.readLine();
         }
+        movieList = new JSONObject(builder.toString());
+        movies = movieList.getJSONArray("movies");
+        reader.close();
     }
 
     // EFFECTS:  returns a MovieList object with all the movies provided in the JSON file

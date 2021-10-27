@@ -13,22 +13,14 @@ public class JsonWriter {
     /* EFFECTS:  constructs a writer that will write to the given file
                  throws IOException if given file cannot be open
      */
-    public JsonWriter(String fileName) {
-        try {
-            writer = new FileWriter(fileName);
-        } catch (IOException e) {
-            System.out.println(fileName + " file was not found. Please use a different file name.");
-        }
+    public JsonWriter(String fileName) throws IOException {
+        writer = new FileWriter(fileName);
     }
 
     // EFFECTS:  saves movieList as a JSON file
-    public void saveMovieList(MovieList movieList) {
+    public void saveMovieList(MovieList movieList) throws IOException {
         JSONObject json = movieList.toJson();
-        try {
-            writer.write(json.toString(INDENT_FACTOR));
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Unable to save. Please use a different file name.");
-        }
+        writer.write(json.toString(INDENT_FACTOR));
+        writer.close();
     }
 }
