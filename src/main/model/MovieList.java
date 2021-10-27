@@ -68,7 +68,7 @@ public class MovieList {
         int index = 0;
         boolean found = false;
         for (Movie movie : movieList) {
-            if (movie.getTitle().equals(title)) {
+            if (movie.getTitle().equalsIgnoreCase(title)) {
                 found = true;
                 break;
             }
