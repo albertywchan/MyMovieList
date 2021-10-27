@@ -6,8 +6,7 @@ import java.util.Scanner;
 
 // MyMovieList application
 public class MyMovieListApp {
-    private static final String WATCHLIST_FILE = "./data/watchlistTest.json";
-    private static final String REVIEWS_FILE = "./data/reviewsTest.json";
+    private static final String DATA_FILEPATH = "./data/";
     private MovieList watchlist;
     private MovieList reviews;
     private Scanner scanner;
@@ -135,9 +134,9 @@ public class MyMovieListApp {
        EFFECTS:  adds a new movie to watchlist given user inputs for the movie title and genre
      */
     private void addToWatchlist() {
-        System.out.println("Enter the movie title: ");
+        System.out.print("Enter the movie title: ");
         String title = scanner.nextLine();
-        System.out.println("Enter the movie genre: ");
+        System.out.print("Enter the movie genre: ");
         String genre = scanner.nextLine();
         Movie newMovie = new Movie(title, genre);
         watchlist.addMovie(newMovie);
@@ -151,7 +150,7 @@ public class MyMovieListApp {
         if (watchlist.isEmpty()) {
             System.out.println("There is nothing to remove.");
         } else {
-            System.out.println("Enter the title of the movie you would like to remove: ");
+            System.out.print("Enter the title of the movie you would like to remove: ");
             String title = scanner.nextLine();
             if (!watchlist.hasMovie(title)) {
                 System.out.println(title + " is not in your watchlist. Please try again.\n");
@@ -173,7 +172,7 @@ public class MyMovieListApp {
 
     // EFFECTS:  displays a movie review given user input for the movie title
     private void readReview() {
-        System.out.println("Enter the title of the movie review you would like to see: ");
+        System.out.print("Enter the title of the movie review you would like to see: ");
         String title = scanner.nextLine();
         if (!reviews.hasMovie(title)) {
             System.out.println("There is no review for " + title + ". Please try again.\n");
@@ -187,7 +186,7 @@ public class MyMovieListApp {
                  rating and comment are updated using user inputs
      */
     private void addReview() {
-        System.out.println("Enter the title of the movie you would like to review: ");
+        System.out.print("Enter the title of the movie you would like to review: ");
         String title = scanner.nextLine();
         if (!watchlist.hasMovie(title)) {
             System.out.println(title + " is not in your watchlist. Please try again.\n");
@@ -207,7 +206,7 @@ public class MyMovieListApp {
         if (reviews.isEmpty()) {
             System.out.println("There are no reviews to update.");
         } else {
-            System.out.println("Enter the title of the movie you would like to update the review for: ");
+            System.out.print("Enter the title of the movie you would like to update the review for: ");
             String title = scanner.nextLine();
             if (!reviews.hasMovie(title)) {
                 System.out.println("There is no review for " + title + ". Please try again.\n");
@@ -220,7 +219,7 @@ public class MyMovieListApp {
 
     // EFFECTS:  asks user for a rating on scale of 1 to 5 and returns it
     private int getNewRating() {
-        System.out.println("Please enter a rating on a scale of one to five stars: ");
+        System.out.print("Please enter a rating on a scale of one to five stars: ");
         int rating = scanner.nextInt();
         while (rating < 1 || rating > 5) {
             System.out.println("Invalid rating. Please enter another rating.");
@@ -232,7 +231,7 @@ public class MyMovieListApp {
 
     // EFFECTS:  asks user for a comment and returns it
     private String getNewComment() {
-        System.out.println("Please enter a comment for your review: ");
+        System.out.print("Please enter a comment for your review: ");
         return scanner.nextLine();
     }
 
@@ -240,18 +239,28 @@ public class MyMovieListApp {
        EFFECTS:  creates new MovieList objects from the JSON files and sets fields to them
      */
     public void loadMovies() {
-        JsonReader watchlistReader = new JsonReader(WATCHLIST_FILE);
-        JsonReader reviewsReader = new JsonReader(REVIEWS_FILE);
+        System.out.print("Enter the name of the file you would like to load your watchlist from: ");
+        String watchlistFileName = scanner.nextLine();
+        JsonReader watchlistReader = new JsonReader(DATA_FILEPATH + watchlistFileName);
+        System.out.print("Enter the name of the file you would like to load your reviews from: ");
+        String reviewsFileName = scanner.nextLine();
+        JsonReader reviewsReader = new JsonReader(DATA_FILEPATH + reviewsFileName);
         watchlist = watchlistReader.parseMovieList();
         reviews = reviewsReader.parseMovieList();
+        System.out.println("Your watchlist and reviews have been loaded.\n");
     }
 
     // EFFECTS:  saves both watchlist and reviews to individual JSON files
     public void saveMovies() {
-        JsonWriter watchlistWriter = new JsonWriter(WATCHLIST_FILE);
-        JsonWriter reviewsWriter = new JsonWriter(REVIEWS_FILE);
+        System.out.print("Enter the name of the file you would like to save your watchlist to: ");
+        String watchlistFileName = scanner.nextLine();
+        JsonWriter watchlistWriter = new JsonWriter(DATA_FILEPATH + watchlistFileName);
+        System.out.print("Enter the name of the file you would like to save your reviews to: ");
+        String reviewsFileName = scanner.nextLine();
+        JsonWriter reviewsWriter = new JsonWriter(DATA_FILEPATH + reviewsFileName);
         watchlistWriter.saveMovieList(watchlist);
         reviewsWriter.saveMovieList(reviews);
+        System.out.println("Your watchlist and reviews have been saved.\n");
     }
 
 }

@@ -22,5 +22,5 @@ app such as **MyMovieList** would be very useful to have.
 - As a user, I want to be able to write a review (rating & comment)
 - As a user, I want to be able to read my previous reviews
 - As a user, I want to be able to update my previous reviews
-- As a user, I want to be able to load an existing watchlist and reviews
+- As a user, I want to be able to load existing watchlists and reviews
 - As a user, I want to be able to save my current watchlist and reviews

@@ -28,7 +28,7 @@ public class JsonReader {
             movies = movieList.getJSONArray("movies");
             reader.close();
         } catch (IOException e) {
-            System.out.println("IOException");
+            System.out.println(fileName + " file was not found. Please use a different file name.");
         }
     }
 
