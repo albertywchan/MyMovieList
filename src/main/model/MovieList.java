@@ -48,7 +48,7 @@ public class MovieList {
     }
 
     /* REQUIRES: movieList is not empty and the movie with the particular movie is in movieList
-       EFFECTS:  returns a String representation of a particular movie including its rating and comment
+       EFFECTS:  returns a String containing the movie title and genre
      */
     public String getTitleAndGenre(String title) {
         int index = getIndexOfMovie(title);
@@ -57,7 +57,7 @@ public class MovieList {
     }
 
     /* REQUIRES: movieList is not empty and the movie with the particular movie is in movieList
-       EFFECTS:  returns a String representation of a particular movie including its rating and comment
+       EFFECTS:  returns a String containing the movie title, genre, rating, and comment
      */
     public String getReview(String title) {
         int index = getIndexOfMovie(title);
