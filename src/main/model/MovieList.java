@@ -45,10 +45,19 @@ public class MovieList {
     /* REQUIRES: movieList is not empty and the movie with the particular movie is in movieList
        EFFECTS:  returns a String representation of a particular movie including its rating and comment
      */
+    public String getTitleAndGenre(String title) {
+        int index = getIndexOfMovie(title);
+        Movie movie = movieList.get(index);
+        return ("Title: " + movie.getTitle() + "\nGenre: " + movie.getGenre() + "\n");
+    }
+
+    /* REQUIRES: movieList is not empty and the movie with the particular movie is in movieList
+       EFFECTS:  returns a String representation of a particular movie including its rating and comment
+     */
     public String getReview(String title) {
         int index = getIndexOfMovie(title);
         Movie movie = movieList.get(index);
-        return (movie.toString() + "\nRating: " + movie.getRating() + "/5\nComment: " + movie.getComment() + "\n");
+        return (getTitleAndGenre(title) + "Rating: " + movie.getRating() + "/5\nComment: " + movie.getComment() + "\n");
     }
 
     /* REQUIRES: movieList is not empty, the movie with the particular movie is in movieList, rating is between 1 and 5

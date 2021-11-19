@@ -46,15 +46,13 @@ public class MovieListTest {
 
     @Test
     void testReviews() {
-        assertEquals(l1.getReview("Batman"), "Title: Batman | Genre: Action\n"
-                + "Rating: -1/5\nComment: \n");
-        assertEquals(l1.getReview("Finding Nemo"), "Title: Finding Nemo | Genre: Family\n"
-                + "Rating: -1/5\nComment: \n");
+        assertEquals(l1.getTitleAndGenre("Batman"), "Title: Batman\nGenre: Action\n");
+        assertEquals(l1.getTitleAndGenre("Finding Nemo"), "Title: Finding Nemo\nGenre: Family\n");
         l1.updateReview("Batman", 4, "Excellent movie.");
         l1.updateReview("Finding Nemo", 3, "Great movie for children.");
-        assertEquals(l1.getReview("Batman"), "Title: Batman | Genre: Action\n"
+        assertEquals(l1.getReview("Batman"), "Title: Batman\nGenre: Action\n"
                 + "Rating: 4/5\nComment: Excellent movie.\n");
-        assertEquals(l1.getReview("Finding Nemo"), "Title: Finding Nemo | Genre: Family\n"
+        assertEquals(l1.getReview("Finding Nemo"), "Title: Finding Nemo\nGenre: Family\n"
                 + "Rating: 3/5\nComment: Great movie for children.\n");
     }
 
