@@ -1,6 +1,8 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -8,6 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MyMovieListUI extends JFrame implements ActionListener, ListSelectionListener {
 
@@ -15,9 +18,12 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
 
     // MenuBar
     private JMenuBar menuBar;
-    private JMenu fileMenu;
-    private JMenuItem loadItem;
-    private JMenuItem saveItem;
+    private JMenu loadMenu;
+    private JMenu saveMenu;
+    private JMenuItem loadWatchlist;
+    private JMenuItem loadReviews;
+    private JMenuItem saveWatchlist;
+    private JMenuItem saveReviews;
 
     // MovieLists
     private MovieList watchlist;
@@ -48,7 +54,6 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(720, 480));
         setResizable(false);
-        setLayout(new GridLayout(1, 2));
         addMenuBar();
         addWatchlistPanel();
         addReviewsPanel();
@@ -60,14 +65,22 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
 
     private void addMenuBar() {
         menuBar = new JMenuBar();
-        fileMenu = new JMenu("File");
-        loadItem = new JMenuItem("Load");
-        loadItem.addActionListener(this);
-        saveItem = new JMenuItem("Save");
-        saveItem.addActionListener(this);
-        menuBar.add(fileMenu);
-        fileMenu.add(loadItem);
-        fileMenu.add(saveItem);
+        loadMenu = new JMenu("Load");
+        menuBar.add(loadMenu);
+        loadWatchlist = new JMenuItem("Load Watchlist");
+        loadWatchlist.addActionListener(this);
+        loadMenu.add(loadWatchlist);
+        loadReviews = new JMenuItem("Load Reviews");
+        loadReviews.addActionListener(this);
+        loadMenu.add(loadReviews);
+        saveMenu = new JMenu("Save");
+        menuBar.add(saveMenu);
+        saveWatchlist = new JMenuItem("Save Watchlist");
+        saveWatchlist.addActionListener(this);
+        saveMenu.add(saveWatchlist);
+        saveReviews = new JMenuItem("Save Reviews");
+        saveReviews.addActionListener(this);
+        saveMenu.add(saveReviews);
         setJMenuBar(menuBar);
     }
 
@@ -111,12 +124,12 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         watchlistButtons.setLayout(new GridLayout(3, 1));
         watchlistButtons.setPreferredSize(new Dimension(170, 240));
         watchlistJList = new JList(watchlistModel);
-        watchlistJList.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+        watchlistJList.setFont(new Font("Lucida Console", Font.PLAIN, 14));
         watchlistJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         watchlistJList.setMinimumSize(new Dimension(200, 100));
         watchlistJList.addListSelectionListener(this);
         watchlistDetails = new JTextArea();
-        watchlistDetails.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+        watchlistDetails.setFont(new Font("Lucida Console", Font.PLAIN, 14));
         watchlistSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, watchlistJList, watchlistDetails);
         watchlistSplitPane.setEnabled(false);
         addWatchlistButtons();
@@ -149,12 +162,12 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviewsButtons.setLayout(new GridLayout(3, 1));
         reviewsButtons.setPreferredSize(new Dimension(170, 240));
         reviewsJList = new JList(reviewsModel);
-        reviewsJList.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+        reviewsJList.setFont(new Font("Lucida Console", Font.PLAIN, 14));
         reviewsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         reviewsJList.setMinimumSize(new Dimension(200, 100));
         reviewsJList.addListSelectionListener(this);
         reviewsDetails = new JTextArea();
-        reviewsDetails.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+        reviewsDetails.setFont(new Font("Lucida Console", Font.PLAIN, 14));
         reviewsSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, reviewsJList, reviewsDetails);
         reviewsSplitPane.setEnabled(false);
         addReviewsButtons();
@@ -217,10 +230,14 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
             removeFromWatchlist();
         } else if (e.getSource() == updateReviewButton) {
             updateReview();
-        } else if (e.getSource() == loadItem) {
-            //
-        } else if (e.getSource() == saveItem) {
-            //
+        } else if (e.getSource() == loadWatchlist) {
+            loadWatchlist();
+        } else if (e.getSource() == loadReviews) {
+            loadReviews();
+        } else if (e.getSource() == saveWatchlist) {
+            saveWatchlist();
+        } else if (e.getSource() == saveReviews) {
+            saveReviews();
         }
     }
 
@@ -236,6 +253,60 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
             if (reviewsJList.getSelectedIndex() != -1) {
                 reviewsDetails.setText(reviews.getReview(reviewsJList.getSelectedValue().toString()));
             }
+        }
+    }
+
+    private void loadWatchlist() {
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showOpenDialog(null);
+            JsonReader reader = new JsonReader(fileChooser.getSelectedFile().getAbsolutePath());
+            watchlist = reader.parseMovieList();
+            watchlistModel.removeAllElements();
+            for (Movie movie : watchlist.getMovies()) {
+                watchlistModel.addElement(movie.getTitle());
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Unable to load movies. File was not found.");
+        }
+    }
+
+    private void loadReviews() {
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showOpenDialog(null);
+            JsonReader reader = new JsonReader(fileChooser.getSelectedFile().getAbsolutePath());
+            reviews = reader.parseMovieList();
+            reviewsModel.removeAllElements();
+            for (Movie movie : reviews.getMovies()) {
+                reviewsModel.addElement(movie.getTitle());
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Unable to load movies. File was not found.");
+        }
+    }
+
+    private void saveWatchlist() {
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showSaveDialog(null);
+            JsonWriter writer = new JsonWriter(fileChooser.getSelectedFile().getAbsolutePath());
+            writer.saveMovieList(watchlist);
+            watchlistModel.removeAllElements();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Unable to save movies. File was not found.");
+        }
+    }
+
+    private void saveReviews() {
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showSaveDialog(null);
+            JsonWriter writer = new JsonWriter(fileChooser.getSelectedFile().getAbsolutePath());
+            writer.saveMovieList(reviews);
+            reviewsModel.removeAllElements();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Unable to save movies. File was not found.");
         }
     }
 

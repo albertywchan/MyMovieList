@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -15,6 +16,10 @@ public class MovieList {
     public MovieList(String name) {
         movieList = new LinkedList<>();
         this.name = name;
+    }
+
+    public LinkedList<Movie> getMovies() {
+        return movieList;
     }
 
     public String getName() {
