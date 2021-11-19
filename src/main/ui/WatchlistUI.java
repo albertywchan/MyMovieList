@@ -50,13 +50,13 @@ public class WatchlistUI extends JPanel implements ActionListener {
     }
 
     private void addWatchlistPanel() {
-        JLabel watchListTitle = new JLabel("Watchlist");
-        watchListTitle.setHorizontalAlignment(JLabel.CENTER);
-        watchListTitle.setVerticalTextPosition(JLabel.BOTTOM);
-        watchListTitle.setOpaque(true);
-        watchListTitle.setForeground(Color.WHITE);
-        watchListTitle.setBackground(new Color(0x000080));
-        add(watchListTitle, BorderLayout.NORTH);
+        JLabel panelTitle = new JLabel("Watchlist");
+        panelTitle.setHorizontalAlignment(JLabel.CENTER);
+        panelTitle.setVerticalTextPosition(JLabel.BOTTOM);
+        panelTitle.setOpaque(true);
+        panelTitle.setForeground(Color.WHITE);
+        panelTitle.setBackground(new Color(0x000080));
+        add(panelTitle, BorderLayout.NORTH);
         add(splitPane, BorderLayout.CENTER);
         add(buttons, BorderLayout.EAST);
     }
