@@ -41,7 +41,7 @@ public class JsonReaderTest {
             assertEquals(ml.getName(), "Test Movie List");
             assertFalse(ml.isEmpty());
             assertTrue(ml.hasMovie("Batman"));
-            assertEquals(ml.getReview("Batman"), "Title: Batman | Genre: Action\n"
+            assertEquals(ml.getReview("Batman"), "Title: Batman\nGenre: Action\n"
                     + "Rating: 4/5\nComment: Excellent movie.\n");
         } catch (IOException e) {
             fail("IOException was not expected.");

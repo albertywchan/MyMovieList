@@ -4,14 +4,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+
 public class MovieListTest {
     MovieList l1;
     MovieList l2;
+    MovieList l3;
 
     @BeforeEach
     void runBefore() {
         l1 = new MovieList("l1");
         l2 = new MovieList("l2");
+        l3 = new MovieList("l3");
         Movie m1 = new Movie("Batman", "Action");
         Movie m2 = new Movie("Finding Nemo", "Family");
         Movie m3 = new Movie("Saw", "Horror");
@@ -28,6 +32,18 @@ public class MovieListTest {
         l1.setName("Test Movie List");
         assertNotEquals(l1.getName(), "l1");
         assertEquals(l1.getName(), "Test Movie List");
+    }
+
+    @Test
+    void testGetMovies() {
+        LinkedList<Movie> movies = new LinkedList<>();
+        Movie m1 = new Movie("Star Wars", "Sci-Fi");
+        Movie m2 = new Movie("Harry Potter", "Fantasy");
+        movies.add(m1);
+        l3.addMovie(m1);
+        movies.add(m2);
+        l3.addMovie(m2);
+        assertEquals(movies, l3.getMovies());
     }
 
     @Test

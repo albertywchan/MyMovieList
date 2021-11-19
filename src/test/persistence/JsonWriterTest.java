@@ -57,9 +57,9 @@ public class JsonWriterTest {
             assertFalse(ml2.isEmpty());
             assertTrue(ml2.hasMovie("Batman"));
             assertTrue(ml2.hasMovie("Finding Nemo"));
-            assertEquals(ml2.getReview("Batman"), "Title: Batman | Genre: Action\n"
+            assertEquals(ml2.getReview("Batman"), "Title: Batman\nGenre: Action\n"
                     + "Rating: 4/5\nComment: Excellent movie.\n");
-            assertEquals(ml2.getReview("Finding Nemo"), "Title: Finding Nemo | Genre: Family\n"
+            assertEquals(ml2.getReview("Finding Nemo"), "Title: Finding Nemo\nGenre: Family\n"
                     + "Rating: 3/5\nComment: Great movie for children.\n");
         } catch (IOException e) {
             fail("IOException was not expected.");
