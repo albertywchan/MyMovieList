@@ -1,11 +1,7 @@
 package ui;
 
-import model.*;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MyMovieListUI extends JFrame {
 
@@ -16,7 +12,7 @@ public class MyMovieListUI extends JFrame {
 
     public MyMovieListUI() {
         super("My Movie List");
-        watchlistPanel = new WatchListUI();
+        watchlistPanel = new WatchlistUI();
         reviewsButtonPanel = new JPanel();
         reviewsButtonPanel.setLayout(new GridLayout(3, 1));
         reviewsButtonPanel.setPreferredSize(new Dimension(170, 240));
@@ -58,7 +54,6 @@ public class MyMovieListUI extends JFrame {
         JList reviews = new JList(movies);
         reviews.setFont(new Font("Lucida Console", Font.PLAIN, 12));
         reviews.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        reviews.setSelectedIndex(0);
         reviews.setMinimumSize(new Dimension(200, 100));
         JTextArea reviewsDetails = new JTextArea("Title: Movie 1\nGenre: Action\nRating: 5/5\nComment: Great movie.");
         reviewsDetails.setFont(new Font("Lucida Console", Font.PLAIN, 12));
