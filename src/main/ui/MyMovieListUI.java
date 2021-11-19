@@ -11,10 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+// MyMovieList Application GUI
 public class MyMovieListUI extends JFrame implements ActionListener, ListSelectionListener {
-
+    //Main Panel
     private JPanel mainPanel;
-
     // MenuBar
     private JMenuBar menuBar;
     private JMenu loadMenu;
@@ -23,11 +23,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
     private JMenuItem loadReviews;
     private JMenuItem saveWatchlist;
     private JMenuItem saveReviews;
-
     // MovieLists
     private MovieList watchlist;
     private MovieList reviews;
-
     // Watchlist Panel
     private JPanel watchlistPanel;
     private JSplitPane watchlistSplitPane;
@@ -38,7 +36,6 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
     private JButton addMovieButton;
     private JButton addReviewButton;
     private JButton removeMovieButton;
-
     // Reviews Panel
     private JPanel reviewsPanel;
     private JSplitPane reviewsSplitPane;
@@ -48,6 +45,10 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
     private JTextArea reviewsDetails;
     private JButton updateReviewButton;
 
+    /* EFFECTS:  creates the frame that will contain the application
+                 adds all necessary panels, panes, buttons to the frame
+                 watchlist and reviews are set to empty MovieLists
+     */
     public MyMovieListUI() {
         super("My Movie List");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,6 +63,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviews = new MovieList("Reviews");
     }
 
+    /* MODIFIES: this
+       EFFECTS:  adds a menu bar with load and save options
+     */
     private void addMenuBar() {
         menuBar = new JMenuBar();
         loadMenu = new JMenu("Load");
@@ -83,6 +87,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         setJMenuBar(menuBar);
     }
 
+    /* MODIFIES: this
+       EFFECTS:  adds a main panel that will hold all the sub panels
+     */
     private void addMainPanel() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(2, 1));
@@ -91,6 +98,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         add(mainPanel);
     }
 
+    /* MODIFIES: this
+       EFFECTS:  adds buttons to be used in the watchlist panel
+     */
     private void addWatchlistButtons() {
         addMovieButton = new JButton("Add a Movie");
         addMovieButton.addActionListener(this);
@@ -103,6 +113,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         watchlistButtons.add(removeMovieButton);
     }
 
+    /* MODIFIES: this
+       EFFECTS:  adds a split pane to be used in the watchlist panel
+     */
     private void addWatchlistSplitPane() {
         JLabel panelTitle = new JLabel("Watchlist");
         panelTitle.setHorizontalAlignment(JLabel.CENTER);
@@ -115,6 +128,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         watchlistPanel.add(watchlistButtons, BorderLayout.EAST);
     }
 
+    /* MODIFIES: this
+       EFFECTS:  consolidates all the previously created components in the watchlist panel
+     */
     private void addWatchlistPanel() {
         watchlistPanel = new JPanel();
         watchlistPanel.setLayout(new BorderLayout());
@@ -135,7 +151,11 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         addWatchlistSplitPane();
     }
 
-    private void addReviewsButtons() {
+    /* MODIFIES: this
+       EFFECTS:  adds buttons to be used in the watchlist panel
+                 adds a logo of the application in the bottom right
+     */
+    private void addReviewsButtonsAndLogo() {
         updateReviewButton = new JButton("Update Review");
         updateReviewButton.addActionListener(this);
         reviewsButtons.add(updateReviewButton);
@@ -151,6 +171,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviewsButtons.add(logoBottom);
     }
 
+    /* MODIFIES: this
+       EFFECTS:  adds a split pane to be used in the reviews panel
+     */
     public void addReviewsSplitPane() {
         JLabel panelTitle = new JLabel("Reviews");
         panelTitle.setHorizontalAlignment(JLabel.CENTER);
@@ -163,6 +186,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviewsPanel.add(reviewsButtons, BorderLayout.EAST);
     }
 
+    /* MODIFIES: this
+       EFFECTS:  consolidates all the previously created components in the reviews panel
+     */
     public void addReviewsPanel() {
         reviewsPanel = new JPanel();
         reviewsPanel.setLayout(new BorderLayout());
@@ -179,10 +205,13 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviewsDetails.setFont(new Font("Lucida Console", Font.PLAIN, 14));
         reviewsSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, reviewsJList, reviewsDetails);
         reviewsSplitPane.setEnabled(false);
-        addReviewsButtons();
+        addReviewsButtonsAndLogo();
         addReviewsSplitPane();
     }
 
+    /* MODIFIES: this
+       EFFECTS:  adds a new movie to watchlist given user inputs for the movie title and genre
+     */
     private void addToWatchlist() {
         String title = JOptionPane.showInputDialog("Enter the movie title:");
         String genre = JOptionPane.showInputDialog("Enter the movie genre:");
@@ -192,6 +221,10 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         watchlistJList.setSelectedIndex(watchlistJList.getLastVisibleIndex());
     }
 
+    /* MODIFIES: this
+       EFFECTS:  transfers a specific movie from watchlist to reviews given user input for the movie title
+                 rating and comment are updated using user inputs
+     */
     private void addReview() {
         if (watchlistJList.getSelectedIndex() != -1) {
             String title = watchlistModel.remove(watchlistJList.getSelectedIndex()).toString();
@@ -210,6 +243,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  removes a movie from watchlist given user input for the movie title
+     */
     private void removeFromWatchlist() {
         if (watchlistJList.getSelectedIndex() != -1) {
             String title = watchlistModel.remove(watchlistJList.getSelectedIndex()).toString();
@@ -217,6 +253,10 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  updates a specific movie given user input for the movie title
+                 rating and comment are updated using user inputs
+     */
     public void updateReview() {
         String title = reviewsJList.getSelectedValue().toString();
         int rating = Integer.parseInt(JOptionPane.showInputDialog("Please enter a new rating "
@@ -229,6 +269,7 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviewsDetails.setText(reviews.getReview(title));
     }
 
+    // EFFECTS:  performs a certain action depending on the button that is pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addMovieButton) {
@@ -250,6 +291,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  updates the details box whenever a new movie is selected
+     */
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (e.getSource() == watchlistJList) {
@@ -265,6 +309,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  populates the watchlist using a JSON file that the user selected
+     */
     private void loadWatchlist() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -280,6 +327,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  populates reviews using a JSON file that the user selected
+     */
     private void loadReviews() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -295,6 +345,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  saves the watchlist to a JSON file that the user has selected
+     */
     private void saveWatchlist() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -306,6 +359,9 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         }
     }
 
+    /* MODIFIES: this
+       EFFECTS:  saves reviews to a JSON file that the user has selected
+     */
     private void saveReviews() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -315,9 +371,5 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Unable to save movies. File was not found.");
         }
-    }
-
-    public static void main(String[] args) {
-        new MyMovieListUI();
     }
 }
