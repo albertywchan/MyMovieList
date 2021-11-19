@@ -136,7 +136,7 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         watchlistPanel.setLayout(new BorderLayout());
         watchlistModel = new DefaultListModel();
         watchlistButtons = new JPanel();
-        watchlistButtons.setLayout(new GridLayout(3, 1,0,0));
+        watchlistButtons.setLayout(new GridLayout(3, 1, 0, 0));
         watchlistButtons.setPreferredSize(new Dimension(170, 240));
         watchlistJList = new JList(watchlistModel);
         watchlistJList.setFont(new Font("Lucida Console", Font.PLAIN, 14));
@@ -194,7 +194,7 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviewsPanel.setLayout(new BorderLayout());
         reviewsModel = new DefaultListModel();
         reviewsButtons = new JPanel();
-        reviewsButtons.setLayout(new GridLayout(3,1,0,0));
+        reviewsButtons.setLayout(new GridLayout(3, 1, 0, 0));
         reviewsButtons.setPreferredSize(new Dimension(170, 240));
         reviewsJList = new JList(reviewsModel);
         reviewsJList.setFont(new Font("Lucida Console", Font.PLAIN, 14));
