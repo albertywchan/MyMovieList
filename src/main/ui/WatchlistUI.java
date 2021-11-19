@@ -76,7 +76,7 @@ public class WatchlistUI extends JPanel implements ActionListener, ListSelection
         int rating = Integer.parseInt(JOptionPane.showInputDialog("Please enter a rating "
                 + "on a scale of one to five stars:"));
         while (rating < 1 || rating > 5) {
-            rating = Integer.parseInt(JOptionPane.showInputDialog("Invalid rating. Please enter another rating"));
+            rating = Integer.parseInt(JOptionPane.showInputDialog("Invalid rating. Please enter another rating."));
         }
         String comment = JOptionPane.showInputDialog("Please enter a comment for your review:");
         Movie newReview = watchlist.removeMovie(model.remove(list.getSelectedIndex()).toString());
