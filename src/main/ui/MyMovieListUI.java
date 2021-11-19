@@ -1,8 +1,7 @@
 package ui;
 
 import model.*;
-import persistence.JsonReader;
-import persistence.JsonWriter;
+import persistence.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -121,7 +120,7 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         watchlistPanel.setLayout(new BorderLayout());
         watchlistModel = new DefaultListModel();
         watchlistButtons = new JPanel();
-        watchlistButtons.setLayout(new GridLayout(3, 1));
+        watchlistButtons.setLayout(new GridLayout(3, 1,0,0));
         watchlistButtons.setPreferredSize(new Dimension(170, 240));
         watchlistJList = new JList(watchlistModel);
         watchlistJList.setFont(new Font("Lucida Console", Font.PLAIN, 14));
@@ -140,6 +139,16 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         updateReviewButton = new JButton("Update Review");
         updateReviewButton.addActionListener(this);
         reviewsButtons.add(updateReviewButton);
+        ImageIcon imageTop = new ImageIcon("./data/logoTop.jpg");
+        JLabel logoTop = new JLabel();
+        logoTop.setIcon(imageTop);
+        logoTop.setHorizontalAlignment(JLabel.CENTER);
+        reviewsButtons.add(logoTop);
+        ImageIcon imageBottom = new ImageIcon("./data/logoBottom.jpg");
+        JLabel logoBottom = new JLabel();
+        logoBottom.setIcon(imageBottom);
+        logoBottom.setHorizontalAlignment(JLabel.CENTER);
+        reviewsButtons.add(logoBottom);
     }
 
     public void addReviewsSplitPane() {
@@ -159,7 +168,7 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviewsPanel.setLayout(new BorderLayout());
         reviewsModel = new DefaultListModel();
         reviewsButtons = new JPanel();
-        reviewsButtons.setLayout(new GridLayout(3, 1));
+        reviewsButtons.setLayout(new GridLayout(3,1,0,0));
         reviewsButtons.setPreferredSize(new Dimension(170, 240));
         reviewsJList = new JList(reviewsModel);
         reviewsJList.setFont(new Font("Lucida Console", Font.PLAIN, 14));
@@ -292,7 +301,6 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
             fileChooser.showSaveDialog(null);
             JsonWriter writer = new JsonWriter(fileChooser.getSelectedFile().getAbsolutePath());
             writer.saveMovieList(watchlist);
-            watchlistModel.removeAllElements();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Unable to save movies. File was not found.");
         }
@@ -304,7 +312,6 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
             fileChooser.showSaveDialog(null);
             JsonWriter writer = new JsonWriter(fileChooser.getSelectedFile().getAbsolutePath());
             writer.saveMovieList(reviews);
-            reviewsModel.removeAllElements();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Unable to save movies. File was not found.");
         }
