@@ -66,7 +66,7 @@ public class ReviewsUI extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand() == "update") {
+        if (e.getActionCommand().equals("update")) {
             updateReview();
         }
     }

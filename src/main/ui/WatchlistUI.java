@@ -3,11 +3,13 @@ package ui;
 import model.*;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class WatchlistUI extends JPanel implements ActionListener {
+public class WatchlistUI extends JPanel implements ActionListener, ListSelectionListener {
 
     private MovieList watchlist;
     private DefaultListModel model;
@@ -26,7 +28,8 @@ public class WatchlistUI extends JPanel implements ActionListener {
         list.setFont(new Font("Lucida Console", Font.PLAIN, 12));
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setMinimumSize(new Dimension(200, 100));
-        details = new JTextArea("Title: Movie 1\nGenre: Action\nRating: n/a\nComment: n/a");
+        list.addListSelectionListener(this);
+        details = new JTextArea();
         details.setFont(new Font("Lucida Console", Font.PLAIN, 12));
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, list, details);
         splitPane.setEnabled(false);
@@ -87,13 +90,20 @@ public class WatchlistUI extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand() == "add") {
+        if (e.getActionCommand().equals("add")) {
             addToWatchlist();
-        } else if (e.getActionCommand() == "review") {
+        } else if (e.getActionCommand().equals("review")) {
             addReview();
-        } else if (e.getActionCommand() == "remove") {
+        } else if (e.getActionCommand().equals("remove")) {
             removeFromWatchlist();
         }
-        list.setSelectedIndex(0);
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        details.setText("");
+        if (list.getSelectedIndex() != -1) {
+            details.setText(watchlist.getTitleAndGenre(list.getSelectedValue().toString()));
+        }
     }
 }
