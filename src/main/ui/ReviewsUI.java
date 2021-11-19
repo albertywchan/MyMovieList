@@ -58,13 +58,14 @@ public class ReviewsUI extends JPanel implements ActionListener, ListSelectionLi
     }
 
     public void updateReview() {
+        String title = list.getSelectedValue().toString();
         int rating = Integer.parseInt(JOptionPane.showInputDialog("Please enter a new rating "
                 + "on a scale of one to five stars:"));
         while (rating < 1 || rating > 5) {
             rating = Integer.parseInt(JOptionPane.showInputDialog("Invalid rating. Please enter another rating."));
         }
         String comment = JOptionPane.showInputDialog("Please enter a new comment for your review:");
-        reviews.updateReview(list.getSelectedValue().toString(), rating, comment);
+        reviews.updateReview(title, rating, comment);
     }
 
     @Override

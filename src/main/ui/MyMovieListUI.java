@@ -1,13 +1,29 @@
 package ui;
 
+import model.*;
+import persistence.*;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MyMovieListUI extends JFrame {
+public class MyMovieListUI extends JFrame implements ActionListener {
 
     private JPanel watchlistPanel;
     private JPanel reviewsPanel;
     private JPanel movieListPanel;
+
+    //Buttons
+    private JPanel watchlistButtons;
+
+    //JSON
+    private JsonReader reader;
+    private JsonWriter writer;
+
+    // MenuBar
+    private JMenuItem loadItem;
+    private JMenuItem saveItem;
 
     public MyMovieListUI() {
         super("My Movie List");
@@ -23,8 +39,10 @@ public class MyMovieListUI extends JFrame {
     private void addMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-        JMenuItem loadItem = new JMenuItem("Load");
-        JMenuItem saveItem = new JMenuItem("Save");
+        loadItem = new JMenuItem("Load");
+        loadItem.addActionListener(this);
+        saveItem = new JMenuItem("Save");
+        saveItem.addActionListener(this);
         menuBar.add(fileMenu);
         fileMenu.add(loadItem);
         fileMenu.add(saveItem);
@@ -41,7 +59,18 @@ public class MyMovieListUI extends JFrame {
         setVisible(true);
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == loadItem) {
+            //
+        } else if (e.getSource() == saveItem) {
+            //
+        }
+    }
+
     public static void main(String[] args) {
         new MyMovieListUI();
     }
+
+
 }
