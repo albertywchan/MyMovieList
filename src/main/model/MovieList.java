@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -14,8 +13,9 @@ public class MovieList {
 
     // EFFECTS:  movieList is set to an empty linked list
     public MovieList(String name) {
-        movieList = new LinkedList<>();
+        this.movieList = new LinkedList<>();
         this.name = name;
+        EventLog.getInstance().logEvent(new Event(name + " has been created"));
     }
 
     public LinkedList<Movie> getMovies() {
@@ -36,6 +36,7 @@ public class MovieList {
      */
     public void addMovie(Movie newMovie) {
         movieList.add(newMovie);
+        EventLog.getInstance().logEvent(new Event(newMovie.getTitle() + " has been added to " + name));
     }
 
     /* REQUIRES: movieList is not empty and the movie with the particular movie is in movieList
@@ -44,6 +45,7 @@ public class MovieList {
      */
     public Movie removeMovie(String title) {
         int index = getIndexOfMovie(title);
+        EventLog.getInstance().logEvent(new Event(title + " has been removed from " + name));
         return movieList.remove(index);
     }
 
@@ -73,6 +75,7 @@ public class MovieList {
         Movie movie = movieList.get(index);
         movie.setRating(rating);
         movie.setComment(comment);
+        EventLog.getInstance().logEvent(new Event("Review for " + title + " has been updated"));
     }
 
     /* EFFECTS:  returns the index of the particular movie if it is present in movieList
