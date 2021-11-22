@@ -24,3 +24,30 @@ app such as **MyMovieList** would be very useful to have.
 - As a user, I want to be able to update my previous reviews
 - As a user, I want to be able to load existing watchlists and reviews
 - As a user, I want to be able to save my current watchlist and reviews
+
+## Phase 4: Task 2
+
+- Sun Nov 21 20:49:49 PST 2021
+- Watchlist has been created
+- Sun Nov 21 20:49:49 PST 2021
+- Reviews has been created
+- Sun Nov 21 20:50:23 PST 2021
+- Watchlist has been created
+- Sun Nov 21 20:50:23 PST 2021
+- Batman has been added to Watchlist
+- Sun Nov 21 20:50:23 PST 2021
+- Finding Nemo has been added to Watchlist
+- Sun Nov 21 20:50:23 PST 2021
+- Superbad has been added to Watchlist
+- Sun Nov 21 20:50:23 PST 2021
+- The Conjuring has been added to Watchlist
+- Sun Nov 21 20:51:38 PST 2021
+- Superbad has been removed from Watchlist
+- Sun Nov 21 20:51:38 PST 2021
+- Superbad has been added to Reviews
+- Sun Nov 21 20:51:38 PST 2021
+- Review for Superbad has been updated
+
+## Phase 4: Task 3
+
+INSERT TEXT HERE
