@@ -1,6 +1,9 @@
 package ui;
 
-import model.*;
+import model.Event;
+import model.EventLog;
+import model.Movie;
+import model.MovieList;
 import persistence.*;
 
 import javax.swing.*;
@@ -9,10 +12,12 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.Iterator;
 
 // MyMovieList Application GUI
-public class MyMovieListUI extends JFrame implements ActionListener, ListSelectionListener {
+public class MyMovieListGUI extends JFrame implements ActionListener, ListSelectionListener {
     //Main Panel
     private JPanel mainPanel;
     // MenuBar
@@ -49,7 +54,7 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
                  adds all necessary panels, panes, buttons to the frame
                  watchlist and reviews are set to empty MovieLists
      */
-    public MyMovieListUI() {
+    public MyMovieListGUI() {
         super("My Movie List");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(720, 480));
@@ -62,6 +67,19 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         watchlist = new MovieList("Watchlist");
         reviews = new MovieList("Reviews");
     }
+
+    // EFFECTS:  prints all logged events to console upon quitting the application
+    @Override
+    public void processWindowEvent(WindowEvent windowEvent) {
+        if (windowEvent.getID() == WindowEvent.WINDOW_CLOSING) {
+            Iterator<Event> iterator = EventLog.getInstance().iterator();
+            while (iterator.hasNext()) {
+                System.out.println(iterator.next().toString());
+            }
+            System.exit(0);
+        }
+    }
+
 
     /* MODIFIES: this
        EFFECTS:  adds a menu bar with load and save options
@@ -161,12 +179,14 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
         reviewsButtons.add(updateReviewButton);
         ImageIcon imageTop = new ImageIcon("./data/logoTop.jpg");
         JLabel logoTop = new JLabel();
-        logoTop.setIcon(imageTop);
+        logoTop.setIcon(new ImageIcon(imageTop.getImage()
+                .getScaledInstance(164, 66, Image.SCALE_SMOOTH)));
         logoTop.setHorizontalAlignment(JLabel.CENTER);
         reviewsButtons.add(logoTop);
         ImageIcon imageBottom = new ImageIcon("./data/logoBottom.jpg");
         JLabel logoBottom = new JLabel();
-        logoBottom.setIcon(imageBottom);
+        logoBottom.setIcon(new ImageIcon(imageBottom.getImage()
+                .getScaledInstance(164, 66, Image.SCALE_SMOOTH)));
         logoBottom.setHorizontalAlignment(JLabel.CENTER);
         reviewsButtons.add(logoBottom);
     }
@@ -271,22 +291,22 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
 
     // EFFECTS:  performs a certain action depending on the button that is pressed
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addMovieButton) {
+    public void actionPerformed(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == addMovieButton) {
             addToWatchlist();
-        } else if (e.getSource() == addReviewButton) {
+        } else if (actionEvent.getSource() == addReviewButton) {
             addReview();
-        } else if (e.getSource() == removeMovieButton) {
+        } else if (actionEvent.getSource() == removeMovieButton) {
             removeFromWatchlist();
-        } else if (e.getSource() == updateReviewButton) {
+        } else if (actionEvent.getSource() == updateReviewButton) {
             updateReview();
-        } else if (e.getSource() == loadWatchlist) {
+        } else if (actionEvent.getSource() == loadWatchlist) {
             loadWatchlist();
-        } else if (e.getSource() == loadReviews) {
+        } else if (actionEvent.getSource() == loadReviews) {
             loadReviews();
-        } else if (e.getSource() == saveWatchlist) {
+        } else if (actionEvent.getSource() == saveWatchlist) {
             saveWatchlist();
-        } else if (e.getSource() == saveReviews) {
+        } else if (actionEvent.getSource() == saveReviews) {
             saveReviews();
         }
     }
@@ -295,13 +315,13 @@ public class MyMovieListUI extends JFrame implements ActionListener, ListSelecti
        EFFECTS:  updates the details box whenever a new movie is selected
      */
     @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (e.getSource() == watchlistJList) {
+    public void valueChanged(ListSelectionEvent listSelectionEvent) {
+        if (listSelectionEvent.getSource() == watchlistJList) {
             watchlistDetails.setText("");
             if (watchlistJList.getSelectedIndex() != -1) {
                 watchlistDetails.setText(watchlist.getTitleAndGenre(watchlistJList.getSelectedValue().toString()));
             }
-        } else if (e.getSource() == reviewsJList) {
+        } else if (listSelectionEvent.getSource() == reviewsJList) {
             reviewsDetails.setText("");
             if (reviewsJList.getSelectedIndex() != -1) {
                 reviewsDetails.setText(reviews.getReview(reviewsJList.getSelectedValue().toString()));
