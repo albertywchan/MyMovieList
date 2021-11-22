@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 // MyMovieList application
-public class MyMovieListApp {
+public class MyMovieListConsoleUI {
     private static final String DATA_FILEPATH = "./data/";
     private MovieList watchlist;
     private MovieList reviews;
@@ -16,7 +16,7 @@ public class MyMovieListApp {
     /* EFFECTS:  watchList and reviews are set to empty MovieLists
                  scanner is initiated
      */
-    public MyMovieListApp() {
+    public MyMovieListConsoleUI() {
         watchlist = new MovieList("Watchlist");
         reviews = new MovieList("Reviews");
         scanner = new Scanner(System.in);
