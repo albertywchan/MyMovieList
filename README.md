@@ -51,4 +51,9 @@ Review for Superbad has been updated
 
 ## Phase 4: Task 3
 
-INSERT TEXT HERE
+- Implement a bi-directional relationship between Movie and MovieList since each Movie should 
+belong to only one MovieList
+- Implement a class hierarchy for movies i.e. have Movie as a parent class and WatchlistMovie and ReviewedMovie
+as subclasses
+- Separate the MyMovieListGUI class into multiple components i.e. use one class for the Buttons panel, use another
+class for the Watchlist panel, and another class for the Reviews panel
