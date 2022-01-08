@@ -1,6 +1,4 @@
-# CPSC 210 Personal Project
-
-## MyMovieList
+# MyMovieList
 
 **MyMovieList** is an application that helps users keep track of movies they have seen. With this app, users will be 
 able to create a watchlist of movies they would like to see. In addition, users will also be able to leave reviews of 
